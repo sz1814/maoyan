@@ -31,8 +31,8 @@ export default {
   },
 
   methods: {
-    onClick (index, title) {
-       
+    onClick () {
+
     }
   }
 }
