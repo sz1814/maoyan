@@ -5,6 +5,7 @@ import Film from '../views/index/Film.vue'
 import Cinema from '../views/index/Cinema.vue'
 import Center from '../views/index/Center.vue'
 import City from '../views/city/Index.vue'
+import Search from '../views/search/Index.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const router = new VueRouter({
       ]
     },
     { path: '/city', name: 'city', component: City },
-    { path: '*', redirect: '/films/.n-hot' }
+    { path: '*', redirect: '/films/.n-hot' },
+    { path: '/search', name: 'search', component: Search }
   ]
 })
 
