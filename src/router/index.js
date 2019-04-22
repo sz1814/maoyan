@@ -14,9 +14,9 @@ const router = new VueRouter({
       path: '/',
       component: Index,
       children: [
-        { path: 'films', name: 'films', component: Film },
-        { path: 'cinemas', name: 'cinemas', component: Cinema },
-        { path: 'center', name: 'center', component: Center },
+        { path: 'films', name: 'films', component: Film, meta: { tabName: 0 } },
+        { path: 'cinemas', name: 'cinemas', component: Cinema, meta: { tabName: 1 } },
+        { path: 'center', name: 'center', component: Center, meta: { tabName: 2 } },
         { path: '', redirect: '/films' }
       ]
     },
