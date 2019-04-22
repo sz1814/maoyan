@@ -1,3 +1,10 @@
 <template>
-  <div>电影</div>
+  <div class="app">电影</div>
 </template>
+
+<style lang="less">
+body {
+  font-size: 16px;
+}
+</style>
+
