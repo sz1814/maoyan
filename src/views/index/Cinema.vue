@@ -19,31 +19,35 @@
     </form>
 
     <div class="nav">
-      <van-tabs line-height=0
+      <van-tabs line-height= 0
       title-active-color="#e54847"
-
        >
-        <van-tab @click="onNavClick">
-            <div slot="title">
+        <van-tab >
+            <div slot="title" @click="allClick">
               全城<van-icon name="arrow-down" size="8px" />
             </div>
-            <div class="quancheng">
+            <div class="quancheng nav-fenlei">
               111
             </div>
         </van-tab>
         <van-tab >
-            <div slot="title">
+            <div slot="title" @click="allClick">
               品牌<van-icon name="arrow-down" size="8px" />
             </div>
+            <div class="pinpai nav-fenlei">
               222
+            </div>
         </van-tab>
         <van-tab >
-            <div slot="title">
+            <div slot="title" @click="allClick">
               特色<van-icon name="arrow-down" size="8px" />
             </div>
+            <div class="tese nav-fenlei">
               333
+            </div>
         </van-tab>
       </van-tabs>
+      <div class="blacker" @click="onClick"></div>
     </div>
 
     <div class="con">
@@ -80,9 +84,20 @@
 <script>
 
 export default {
-  onNavClick(index) {
-    console.log(111);
-  }
+  methods: {
+    allClick() {
+      let blacker = document.querySelector('.blacker');
+      blacker.style.display = "block";
+      let fenlei = document.querySelector('.van-tabs__content');
+      fenlei.style.display = "block";
+    },
+    onClick() {
+      let blacker = document.querySelector('.blacker');
+      blacker.style.display = "none";
+      let fenlei = document.querySelector('.van-tabs__content');
+      fenlei.style.display = "none";
+    }
+  },
 }
 </script>
 
@@ -108,6 +123,7 @@ export default {
   height: 44px;
   position:fixed;
   top:50px;
+  z-index:99!important;
   .dizhi{
     padding-left:15px;
     color:#666;
@@ -122,7 +138,7 @@ export default {
     border-radius:8px;
     width:280px;
     float:left;
-    margin: 5px 18px 5px 15px !important;
+    margin: 5px 18px 5px 15px!important;
     padding:0;
     color:#b2b2b2;
     border:.4px solid #e6e6e6;
@@ -133,13 +149,35 @@ element.style{
   background: #f5f5f5 ;
 }
 .nav{
+  .blacker{
+    display:none;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.3);
+    z-index: 10;
+  }
+  position:relative;
   width:100%;
   position:fixed;
   top:94px;
+  .van-tabs{
+     z-index:99!important;
+  }
   .van-tabs__content{
-    display:none;
+    display: none;
+  }
+  .nav-fenlei{
+    background:#fff;
+    position:absolute;
+    left:0;
+    color:red;
+    top:44px;
   }
 }
+
 .con{
   margin-top:140px;
   ul{
