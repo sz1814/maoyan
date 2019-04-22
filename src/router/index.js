@@ -15,13 +15,14 @@ const router = new VueRouter({
       path: '/',
       component: Index,
       children: [
-        { path: 'films', name: 'films', component: Film, meta: { tabName: 0 } },
+        { path: 'films/:filmType', name: 'films', component: Film, meta: { tabName: 0 } },
         { path: 'cinemas', name: 'cinemas', component: Cinema, meta: { tabName: 1 } },
         { path: 'center', name: 'center', component: Center, meta: { tabName: 2 } },
-        { path: '', redirect: '/films' }
+        { path: '', redirect: '/films/.n-hot' }
       ]
     },
     { path: '/city', name: 'city', component: City },
+    { path: '*', redirect: '/films/.n-hot' },
     { path: '/search', name: 'search', component: Search }
   ]
 })
