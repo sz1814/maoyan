@@ -157,7 +157,7 @@ element.style{
     top: 0;
     left: 0;
     background: rgba(0,0,0,.3);
-    z-index: 10;
+    z-index: 10!important;
   }
   position:relative;
   width:100%;
