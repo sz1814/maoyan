@@ -87,6 +87,7 @@ h2 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 900;
 }
 .con-a,
 .con-b {
