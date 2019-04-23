@@ -19,7 +19,7 @@
     </form>
 
     <div class="nav">
-      <van-tabs line-height= 0
+      <van-tabs :line-height= '0'
       title-active-color="#e54847"
        >
         <van-tab >
@@ -27,7 +27,36 @@
               全城<van-icon name="arrow-down" size="8px" />
             </div>
             <div class="quancheng nav-fenlei">
-              111
+              <div class="qc_Fenlei">
+                <ul>
+                  <li @click="shopOnclick" class="qc_Fenlei_shop" ref="qc_Fenlei_shop">商区</li>
+                  <li @click="metroOnclick" class="qc_Fenlei_metro" ref= "qc_Fenlei_metro">地铁站</li>
+                </ul>
+              </div>
+              <div class="qc_con">
+                <ul>
+                  <li class="qc_Fenlei_con1" ref="qc_Fenlei_con1" >
+                    <van-tree-select
+                      :items="items"
+                      :main-active-index="mainActiveIndex"
+                      :active-id="activeId"
+                      @navclick="onNavClick"
+                      @itemclick="onItemClick"
+                      :height="358"
+                    />
+                  </li>
+                  <li class="qc_Fenlei_con2" ref="qc_Fenlei_con2">
+                    <van-tree-select
+                        :items="metro"
+                        :main-active-index="mainActiveIndex"
+                        :active-id="activeId"
+                        @navclick="onNavClick"
+                        @itemclick="onItemClick"
+                        :height="358"
+                      />
+                  </li>
+                </ul>
+              </div>
             </div>
         </van-tab>
         <van-tab >
@@ -35,7 +64,11 @@
               品牌<van-icon name="arrow-down" size="8px" />
             </div>
             <div class="pinpai nav-fenlei">
-              222
+              <ul>
+                <li v-for="item in 30" :key="item">
+                  <span>影院</span><em>111</em>
+                </li>
+              </ul>
             </div>
         </van-tab>
         <van-tab >
@@ -43,11 +76,26 @@
               特色<van-icon name="arrow-down" size="8px" />
             </div>
             <div class="tese nav-fenlei">
-              333
+              <div class="tese_gn">特色功能</div>
+              <div class="tese_gnlist">
+                <ul>
+                  <li v-for="item in 4" :key="item">全部</li>
+                </ul>
+              </div>
+              <div class="tese_teshu">特殊厅</div>
+              <div class="tese_teshulist">
+                <ul>
+                  <li v-for="item in 13" :key="item">全部</li>
+                </ul>
+              </div>
+              <div>
+                <button>重置</button>
+                <button>确定</button>
+              </div>
             </div>
         </van-tab>
       </van-tabs>
-      <div class="blacker" @click="onClick"></div>
+      <div class="blacker" ref="blacker" @click="onClick"></div>
     </div>
 
     <div class="con">
@@ -80,22 +128,48 @@
 
   </div>
 </template>
-
 <script>
-
+import items from '@/data/items.json'
+import metro from '@/data/metro.json'
 export default {
+  data() {
+    return {
+      items: items,
+      metro: metro,
+      // 左侧高亮元素的index
+      mainActiveIndex: 0,
+      // 被选中元素的id
+      activeId: 1
+    };
+  },
   methods: {
     allClick() {
-      let blacker = document.querySelector('.blacker');
-      blacker.style.display = "block";
+      this.$refs.blacker.style.display = "block";
       let fenlei = document.querySelector('.van-tabs__content');
       fenlei.style.display = "block";
     },
     onClick() {
-      let blacker = document.querySelector('.blacker');
-      blacker.style.display = "none";
+      this.$refs.blacker.style.display = "none";
       let fenlei = document.querySelector('.van-tabs__content');
       fenlei.style.display = "none";
+    },
+    shopOnclick() {
+      this.$refs.qc_Fenlei_con1.style.display = "block";
+      this.$refs.qc_Fenlei_con2.style.display = "none";
+      this.$refs.qc_Fenlei_metro.classList.remove("qc_Fenlei_shop2");
+      this.$refs.qc_Fenlei_shop.classList.add("qc_Fenlei_shop2");
+    },
+    metroOnclick() {
+      this.$refs.qc_Fenlei_con1.style.display = "none";
+      this.$refs.qc_Fenlei_con2.style.display = "block";
+      this.$refs.qc_Fenlei_shop.classList.remove("qc_Fenlei_shop2");
+      this.$refs.qc_Fenlei_metro.classList.add("qc_Fenlei_shop2");
+    },
+    onNavClick(index) {
+      this.mainActiveIndex = index;
+    },
+    onItemClick(data) {
+      this.activeId = data.id;
     }
   },
 }
@@ -170,11 +244,91 @@ element.style{
     display: none;
   }
   .nav-fenlei{
+    width:100%;
     background:#fff;
     position:absolute;
     left:0;
-    color:red;
-    top:44px;
+    top:0;
+  }
+  .quancheng{
+     position:relative;
+    .qc_Fenlei{
+      ul{
+        li{
+          float:left;
+          width:50%;
+          height:44px;
+          margin-left:0;
+          text-align:center;
+          font-size:15px;
+          color:#666;
+          line-height:44px;
+        }
+        .qc_Fenlei_shop2{
+          color:red;
+          border-bottom:2px solid #e54847;
+        }
+      }
+    }
+    .qc_con{
+        height:402px;
+      ul{
+        li{
+          z-index:10;
+          position:absolute;
+          top:44px;
+          left:0;
+          display:none;
+
+        }
+      }
+    }
+  }
+  .pinpai{
+    height:340px;
+    overflow:auto;
+    ul{
+      margin-top:44px;
+      li{
+        height:45px;
+        line-height:45px;
+        border-bottom:1px solid #e0e0e0;
+        font-size:12px;
+        color:#333;
+        span{
+          padding-left:10px;
+          float:left;
+        }
+        em{
+          padding-right:20px;
+          float:right;
+          color:#8f9296;
+        }
+      }
+    }
+  }
+  .tese{
+    margin-top:44px;
+    .tese_gn{
+      font-size: 15px;
+      color: #777;
+      margin: 11px 0 0 12px;
+    }
+    .tese_gnlist{
+      text-align:center;
+      ul{
+        li{
+          float:left;
+          width: 70px;
+          height:38px;
+          margin: 10px 9.5px 0 0;
+          border: 1px solid #e0e0e0;
+          border-radius: 5px;
+          line-height:38px;
+        }
+      }
+    }
+
   }
 }
 
