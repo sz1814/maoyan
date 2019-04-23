@@ -4,7 +4,7 @@
 
     <div class="tab">
       <div class="dizhi">
-        <span>上海</span>
+        <router-link tag="span" to='../city'>上海</router-link>
         <van-icon name="arrow-down" size="10px"/>
       </div>
       <div class="tabName">

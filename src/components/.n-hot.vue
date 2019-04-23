@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="films in filmList" :key="films.id">
+      <router-link tag="li" to="../detail" v-for="films in filmList" :key="films.id">
         <div class="left">
           <img  :src="films.img"  alt>
         </div>
@@ -20,7 +20,7 @@
             <div class="btn">预售</div>
           </div>
         </div>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
