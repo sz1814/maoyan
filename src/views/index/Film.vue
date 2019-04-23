@@ -8,11 +8,13 @@
         <van-icon name="arrow-down" size="10px"/>
       </div>
       <div class="tabName">
-        <van-tabs title-active-color="#ef4238" @click="onClick">
+        <van-tabs title-active-color="#ef4238" @click="onTabClick" v-model="curTab">
           <van-tab title="正在热映">
-            <hot/>
+            <nhot />
           </van-tab>
-          <van-tab title="即将上映">222</van-tab>
+          <van-tab title="即将上映">
+            <fhot />
+          </van-tab>
         </van-tabs>
       </div>
       <div class="search">
@@ -24,15 +26,29 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import hot from "@/components/.n-hot.vue";
+import nhot from "@/components/.n-hot.vue";
+import fhot from "@/components/.f-hot.vue";
 export default {
+  data () {
+    return {
+      curTab: 0
+    }
+  },
+
   components: {
-    hot
+    nhot,
+    fhot
   },
 
   methods: {
-    onClick () {
-
+    onTabClick (index) {
+      let filmType = index === 0 ? '.n-hot' : '.f-hot';
+      this.$router.replace({
+        name: 'films',
+        params: {
+          filmType
+        }
+      })
     }
   }
 }

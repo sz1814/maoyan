@@ -2,7 +2,8 @@ import axios from 'axios'
 import { Toast } from 'vant'
 
 const state = {
-  filmList: []
+  filmList: [],
+  bannerList: []
 }
 
 const mutations = {
@@ -11,6 +12,14 @@ const mutations = {
     state.filmList.forEach(x => {
      x.img = x.img.replace('/w.h','')
     })
+  },
+
+  setBannerList(state, list) {
+    state.bannerlist = list
+    console.log(list)
+    state.bannerList.forEach(x => {
+      x.img = x.img.replace('/w.h','')
+     })
   }
 }
 
@@ -21,11 +30,26 @@ const actions = {
       duration: 0
     }),
       axios.get('/maoyan/ajax/movieOnInfoList?token=').then(res => {
-        console.log(res)
         let result = res.data
         if (res.status === 200) {
-          console.log(result.movieList)
           commit('setFilmList', result.movieList)
+        } else {
+          Toast(result.msg)
+        }
+
+        Toast.clear()
+      })
+  },
+
+  getBannerList({ commit }) {
+    Toast.loading({
+      loadingType: 'spinner',
+      duration: 0
+    }),
+      axios.get('/maoyan/ajax/mostExpected?ci=10&limit=10&offset=0&token=').then(res => {
+        let result = res.data
+        if (res.status === 200) {
+          commit('setBannerList', result.coming)
         } else {
           Toast(result.msg)
         }
