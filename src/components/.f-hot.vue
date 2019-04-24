@@ -2,16 +2,16 @@
   <div>
     <div class="banner">
       <p class="title">近期最受期待</p>
-      <van-swipe indicator-color="white" :height="157" :width="85" :loop="false">
-        <van-swipe-item v-for="banner in filmList" :key="banner.id">
-          <img
-            :src="banner.img"
-            alt
-          >
-          <h5 class="name line-ellipsis">{{ banner.nm }}</h5>
-          <p class="date">{{ banner.rt }}</p>
-        </van-swipe-item>
-      </van-swipe>
+
+      <div class="swiper">
+        <div class="showImg">
+          <div v-for="item in filmList" :key="item.id">
+            <img :src="item.img" alt>
+            <span>{{ item.nm }}</span>
+            <p>{{ item.rt }}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <ul>
@@ -43,23 +43,57 @@
 import { mapActions, mapState } from "vuex";
 export default {
   computed: {
-    ...mapState("film", ["bannerList","filmList"])
+    ...mapState("film", ["bannerList", "filmList"])
   },
 
   methods: {
-    ...mapActions("film", ["getBannerList", "getFilmList"]),
-    
+    ...mapActions("film", ["getBannerList", "getFilmList"])
   },
 
   created() {
     this.getBannerList();
     this.getFilmList();
   }
-}
+};
 </script>
 
 
 <style lang="less">
+.swiper {
+  height: 161px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  .showImg {
+    display: flex;
+    div {
+      float: left;
+      margin-right: 10px;
+
+      img {
+        width: 85px;
+        height: 115px;
+      }
+
+      span {
+        width: 85px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        margin: 0 0 3px;
+        font-size: 13px;
+        color: #222;
+      }
+
+      p {
+        margin: 0;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+}
+
 .title {
   margin: 15px 0 15px;
   font-size: 14px;
