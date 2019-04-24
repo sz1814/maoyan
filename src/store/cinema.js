@@ -13,7 +13,6 @@ const mutations = {
 
   setFenleiList(state, list) {
     state.fenleiList = list
-    console.log(list)
   }
 }
 
@@ -43,9 +42,7 @@ const actions = {
     }),
       axios.get('/maoyan/ajax/filterCinemas?ci=30').then(res => {
         let result = res.data
-        console.log(res)
         if (res.status === 200) {
-          console.log(result)
           commit('setFenleiList', result)
         } else {
           Toast(result.msg)
