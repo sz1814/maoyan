@@ -7,7 +7,7 @@
       @click-left="onClickLeft"
     />
 
-    <van-tabs title-active-color="#df2d2d" line-width="150">
+    <van-tabs title-active-color="#df2d2d">
     <van-tab title="美团账号登陆">
       <van-cell-group >
         <van-field placeholder="账户名/手机号/Email" />
