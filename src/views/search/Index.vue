@@ -88,8 +88,9 @@ export default {
 
         if (res.status === 200) {
           this.cinemaList = []
-          this.cinemaList = result.cinemas.list
           console.log(result)
+          this.cinemaList = result.cinemas.list
+          
           this.setcinemaList(this.cinemaList)
         } else {
           Toast(result.msg)

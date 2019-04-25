@@ -77,7 +77,7 @@ export default {
           h3 {
             max-width:250px;
             display:inline-block;
-            float:left;
+            // float:left;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
