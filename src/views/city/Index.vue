@@ -1,41 +1,42 @@
 <template>
   <div class="main city-list">
-    <!-- <van-nav-bar
-      title="标题"
+    <van-nav-bar
+      title="所在城市"
       left-text="返回"
-      right-text="按钮"
       left-arrow
-    />-->
+      @click-left="onClickLeft"
+    />
     <div class="lv-indexlist">
       <ul class="lv-indexlist__content" id="lv-indexlist__content">
         <div class="recommend-city">
           <div class="gprs-city">
             <div class="city-index-title">GPS定位你所在城市</div>
             <ul class="city-index-detail">
-              <li class="city-item-detail city-item-detail-gprs">
+              <div class="city-item-detail city-item-detail-gprs">
                 <div class="city-item-text">定位失败</div>
-              </li>
+              </div>
             </ul>
           </div>
           <div class="hot-city">
             <div class="city-index-title">热门城市</div>
             <ul class="city-index-detail">
-              <li class="city-item-detail">
-                <div class="city-item-text">上海</div>
-              </li>
-              <li class="city-item-detail">
-                <div class="city-item-text">天津</div>
-              </li>
+              <div class="city-item-detail" v-for="item in cityList" :key="item.cityId" v-if="item.isHot === 1" @click="fn2(item.name)">
+                <div class="city-item-text">{{ item.name }}</div>
+              </div>
+              
             </ul>
           </div>
         </div>
         <div class="lv-indexsection"
         v-for="item in newCityList"
-        :key="item.name">
+        :key="item.name"
+        :id="'box' + item.name">
           <p class="lv-indexsection__index">{{ item.name }}</p>
           <ul>
             <li
-            v-for="city in item.citys" :key="city.cityId">{{ city.name }}</li>
+            v-for="city in item.citys" 
+            :key="city.cityId" 
+            @click="fn2(city.name)" >{{ city.name }}</li>
           </ul>
         </div>
       </ul>
@@ -43,8 +44,7 @@
         <ul>
           <li v-for="item in pys" 
           :key="item" 
-          @click="fn1(item)"
-          :id="'box' + item">{{ item }}</li>
+          @click="fn1(item)">{{ item }}</li>
         </ul>
       </div>
     </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState("city", ["cityList"]),
@@ -63,11 +63,23 @@ export default {
   methods: {
     ...mapActions("city", ["getCityList"]),
 
+    ...mapMutations('city', ["chgCurCity"]),
+
     fn1(item) {
       let boxEl = document.getElementById('box' + item)
       let top = boxEl.offsetTop
+      console.log(top);
       document.getElementById('lv-indexlist__content').scrollTop = top
-    }
+    },
+
+    fn2(city) {
+      this.chgCurCity(city)
+      this.$router.back()
+    },
+
+     onClickLeft() {
+      window.history.back(-1)
+    },
   },
 
   created() {
@@ -161,6 +173,7 @@ export default {
           padding-bottom: 15px;
           box-sizing: border-box;
           float: left;
+          margin-bottom:10px;
 
           .city-item-text {
             height: 30px;

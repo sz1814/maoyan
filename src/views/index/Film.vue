@@ -4,7 +4,7 @@
 
     <div class="tab">
       <div class="dizhi">
-        <router-link tag="span" to='../city'>上海</router-link>
+        <router-link tag="span" to='../city'>{{ curCity }}</router-link>
         <van-icon name="arrow-down" size="10px"/>
       </div>
       <div class="tabName">
@@ -40,6 +40,12 @@ export default {
     fhot
   },
 
+  computed: {
+    ...mapState("city", [
+      "curCity"
+    ])
+  },
+
   methods: {
     onTabClick (index) {
       let filmType = index === 0 ? '.n-hot' : '.f-hot';
@@ -59,6 +65,7 @@ export default {
 body {
   font-size: 16px;
   box-sizing: border-box;
+  width: 100%;
 
   .nav-header {
     width: 100%;
@@ -76,7 +83,7 @@ body {
 
   .tab {
     margin-top: 52px;
-    width: 375px;
+    width: 100%;
     height: 45px;
     border-bottom: 1px solid #ccc;
     position: relative;

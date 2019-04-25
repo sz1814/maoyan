@@ -4,7 +4,7 @@
 
     <form class="search" action="/">
       <router-link to="../city" class="dizhi">
-        <span>深圳</span>
+        <span>{{ curCity }}</span>
         <van-icon name="arrow-down"/>
       </router-link>
       <router-link to="../search">
@@ -141,7 +141,6 @@
           </div>
           <div class="tehui">
             <p>
-
               <em>卡</em>{{ yingyuan.promotion.cardPromotionTag }}
             </p>
           </div>
@@ -161,7 +160,8 @@
     },
 
     computed: {
-      ...mapState("cinema", ["yingyuanList", "fenleiList"])
+      ...mapState("cinema", ["yingyuanList", "fenleiList"]),
+      ...mapState("city", ["curCity"])
     },
 
     methods: {
@@ -535,7 +535,7 @@
           font-size: 12px;
           span {
             display: inline-block;
-            width: 286px;
+            width: 250px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;

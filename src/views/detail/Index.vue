@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-      <van-icon name="arrow-left" size="30px" color="#fff"/>
+      <van-icon name="arrow-left" size="30px" color="#fff" @click="$router.back()"/>
       <div class="topName">复仇者联盟4：终局之战</div>
     </div>
 
@@ -58,13 +58,28 @@
 
       <div class="meitiku">
         <h2>媒体库</h2>
-        <div class="show">
-          <img
-            src="//p0.meituan.net/movie/710fb2c4d00f7bd3dffbc4475bdc7c7a1128694.jpg@180w_140h_1e_1c.webp"
-            v-for="item in 20"
-            :key="item"
-          >
+
+        <div class="chonggai">
+          <div class="imgBox">
+            <div v-for="item in 20" :key="item">
+              <img
+                src="//p0.meituan.net/movie/710fb2c4d00f7bd3dffbc4475bdc7c7a1128694.jpg@180w_140h_1e_1c.webp"
+                alt
+              >
+            </div>
+          </div>
         </div>
+
+        <!-- <div>
+          <div class="show">
+            <img
+              src="//p0.meituan.net/movie/710fb2c4d00f7bd3dffbc4475bdc7c7a1128694.jpg@180w_140h_1e_1c.webp"
+              v-for="item in 20"
+              :key="item"
+            >
+          </div>
+        </div>-->
+
         <p class="p1">
           <span class="span1">视频</span>
           <span class="span2">
@@ -258,7 +273,6 @@
         <a>下载猫眼电影，查看更多电影信息</a>
       </div>
 
-
       <div class="dibu">
         <span>© 猫眼电影 客服电话: 1010-5335</span>
 
@@ -271,6 +285,24 @@
 </template>
 
 <style lang="less">
+.chonggai {
+  width: 100%;
+  height: 76px;
+  overflow-x: auto;
+
+  .imgBox {
+    display: flex;
+  }
+
+  img {
+    display: block;
+    float: left;
+    width: 90px;
+    height: 70px;
+    margin-right: 10px;
+  }
+}
+
 .dibu {
   span {
     display: block;
@@ -660,19 +692,6 @@
     margin-top: 10px;
     background: #fff;
     padding: 15px;
-
-    .show {
-      display: flex;
-      overflow-x: auto;
-      min-width: 20px;
-
-      img {
-        float: left;
-        width: 90px;
-        height: 70px;
-        margin-right: 5px;
-      }
-    }
 
     .p1 {
       width: 125px;
