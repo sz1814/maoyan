@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar
+    <van-nav-bar class="head"
       title="猫眼电影"
       left-text="返回"
       left-arrow
@@ -52,6 +52,23 @@ export default {
 
 
   <style lang="less">
+  .head{
+    background: #e54847;
+    .van-ellipsis{
+      color: #fff;
+      font-weight: 900;
+    }
+    .van-nav-bar__left{
+      i{
+        color: #fff;
+        font-weight: 900;
+      }
+      .van-nav-bar__text{
+        color: #fff;
+        font-weight: 900;
+      }
+    }
+  }
     .phone-a{
       position:relative;
     }
