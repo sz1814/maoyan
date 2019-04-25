@@ -155,10 +155,6 @@
   let quIndex = 0;
 
   export default {
-    data() {
-      return {
-      }
-    },
 
     computed: {
       ...mapState("cinema", ["yingyuanList", "fenleiList"])
@@ -275,19 +271,28 @@
       float: left;
       line-height: 44px;
       font-size: 15px;
+      position: relative;
     }
     .van-search__content {
       background: #fff;
     }
     .search-btn {
       height: 30px;
-      border-radius: 8px;
-      width: 280px;
-      float: left;
+      border-radius: 17px;
+      width: 270px;
+      float: right;
       margin: 9px 18px 5px 15px !important;
       padding: 0;
       color: #b2b2b2;
       border: 0.4px solid #e6e6e6;
+      .van-search__content{
+        height:30px;
+        width:250px;
+        padding: 0 10px;
+        .van-cell{
+          padding: 0;
+        }
+      }
     }
   }
 
@@ -535,7 +540,7 @@
           font-size: 12px;
           span {
             display: inline-block;
-            width: 286px;
+            width: 250px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;

@@ -4,15 +4,14 @@
       <i @click="onCancel"><van-icon name="arrow-left" /></i>
       猫眼电影
     </h1>
-    <div class="search">
+    <div class="search-">
       <form action="/">
         <div class="van-search">
           <van-icon name="search" />
-          <input type='text'
+          <input type="text"
           placeholder="搜索院"
-          v-model="value" v-on:input ="inputFunc"
-          @keydown.down="changeDown()"
-          @keydown.up="changeUp()"
+          v-model="value"
+          v-on:input="inputFunc"
           >
           <van-icon name="clear" />
         </div>
@@ -20,32 +19,38 @@
       </form>
 
     </div>
-    <div class="con">
+    <div class="cont">
       <ul>
-        <li :class="{list:$index===now}"
-        v-for="(item,$index) in cinemaList" :key="item.id">
-          <div>
-            <h3>
-              {{ item.nm }}
-            </h3>
-            <b>
-              {{ item.sellPrice }}
-              <span>元起</span>
-            </b>
+        <div class="list"
+        v-for="(item,$index) in cinemaList"
+        :key="item.id" >
+          <div v-if="$index < 3">
+            <div>
+              <h3>
+                {{ item.nm }}
+              </h3>
+              <b>
+                {{ item.sellPrice }}
+                <span>元起</span>
+              </b>
+            </div>
+            <p>
+              <span clsaa="ps">{{ item.addr }}</span>
+              <em>距离 {{ item.distance }}</em>
+            </p>
+            <div class="biaoqian">
+              <em v-if="item.sell === true">座</em>
+              <em v-for=" yinyuan in item.hallType" :key="yinyuan">{{ yinyuan }}</em>
+              <em v-if="item.allowRefund === 1">退</em>
+              <em v-if="item.endorse === 1" >改签</em>
+              <em class="yellow" v-if="item.snack === 1">小吃</em>
+              <em class="yellow" v-if="item.vipDesc === '折扣卡'">折扣卡</em>
+            </div>
           </div>
-          <p>
-            <span clsaa="ps">{{ item.addr }}</span>
-            <em>距离 {{ item.distance }}</em>
-          </p>
-          <div class="biaoqian">
-            <em v-if="item.sell === true">座</em>
-            <em v-for=" yinyuan in item.hallType" :key="yinyuan">{{ yinyuan }}</em>
-            <em v-if="item.allowRefund === 1">退</em>
-            <em v-if="item.endorse === 1" >改签</em>
-            <em class="yellow" v-if="item.snack === 1">小吃</em>
-            <em class="yellow" v-if="item.vipDesc === '折扣卡'">折扣卡</em>
-          </div>
-        </li>
+        </div>
+        <router-link to="searchList" class="list-btn" v-if="cinemaList.length !== 0" >
+          查看全部<em>{{ cinemaList.length }}</em>条消息
+        </router-link>
       </ul>
     </div>
   </div>
@@ -53,21 +58,22 @@
 <script>
 import axios from 'axios'
 import { Toast } from 'vant'
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      valve: '',
-      cinemaList: [],
-      now:-1
+      value: "",
+      cinemaList: []
     }
   },
 
   methods: {
+    ...mapMutations("search",["setcinemaList"]),
 
     inputFunc() {
       if(this.value) {
-        this.cinemaList = []
         this.getCinema()
+        console.log(this.value)
       }
     },
     getCinema() {
@@ -79,34 +85,24 @@ export default {
         }
       }).then(res => {
         let result = res.data
-        console.log(result)
+
         if (res.status === 200) {
-          console.log(result)
+          this.cinemaList = []
           this.cinemaList = result.cinemas.list
-        } else {
           console.log(result)
+          this.setcinemaList(this.cinemaList)
+        } else {
           Toast(result.msg)
         }
         Toast.clear()
       })
-    },
-    changeDown() {
-      this.now++
-      if(this.now === this.cinemaList.length) {
-        this.now = -1
-      }
-    },
-    changeUp: function() {
-      this.now--;
-      if (this.now === -2) {
-        this.now = this.cinemaList.length - 1;
-      }
     },
 
     onCancel() {
       window.history.back(-1)
     }
   }
+
 }
 </script>
 
@@ -129,10 +125,13 @@ export default {
     }
   }
 
-  .search{
+  .search-{
+    width: 100%;
+    position: fixed;
     background: #f5f5f5;
     border-bottom: 1px solid #e5e5e5;
     height: 48px;
+    top:50px;
     .van-search{
       height:30px;
       background: #fff;
@@ -158,12 +157,13 @@ export default {
     }
   }
 
-  .con {
+  .cont {
     margin-top: 100px;
     ul {
       background:#fff;
       .list {
-        height:100px;
+        display: none;
+        min-height:110px;
         padding: 13px 15px 13px 0;
         margin: 0 15px;
         background-color: #fff;
@@ -196,9 +196,9 @@ export default {
           margin-top: 6px;
           color: #666;
           font-size: 12px;
-          .ps {
+          span {
             display:block;
-            width: 270px;
+            width: 250px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -230,6 +230,22 @@ export default {
             border: 1px solid #f90;
           }
         }
+      }
+      .list:nth-of-type(1){
+        display: block;
+      }
+      .list:nth-of-type(2){
+        display: block;
+      }
+      .list:nth-of-type(3){
+        display: block;
+      }
+      .list-btn{
+        height: 44px;
+        margin-left: 30%;
+        line-height: 44px;
+        color: #ef4238;
+        font-size: 15px;
       }
     }
   }

@@ -7,7 +7,8 @@ import Center from '../views/index/Center.vue'
 import City from '../views/city/Index.vue'
 import Search from '../views/search/Index.vue'
 import Detail from '../views/detail/Index.vue'
-
+import SearchList from '../views/search/searchList.vue'
+import Login from '../views/login/Index.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -18,14 +19,17 @@ const router = new VueRouter({
       children: [
         { path: 'films/:filmType', name: 'films', component: Film, meta: { tabName: 0 } },
         { path: 'cinemas', name: 'cinemas', component: Cinema, meta: { tabName: 1 } },
+        { path: 'center', name: 'center', component: Center, meta: { tabName: 2 } },
         { path: '', redirect: '/films/.n-hot' }
       ]
     },
     { path: '/city', name: 'city', component: City },
     { path: '*', redirect: '/films/.n-hot' },
     { path: '/search', name: 'search', component: Search },
+    { path: '/searchList', name: 'search', component: SearchList },
     { path: '/detail', name: 'detail', component: Detail },
-    { path: 'center', name: 'center', component: Center, meta: { tabName: 2 } }
+    { path: '/login', name: 'login', component: Login }
+
   ]
 })
 

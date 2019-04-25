@@ -18,7 +18,9 @@
         </van-tabs>
       </div>
       <div class="search">
-        <van-icon name="search" size="25px" color="red"/>
+        <router-link to="../search">
+          <van-icon name="search" size="25px" color="red"/>
+        </router-link>
       </div>
     </div>
   </div>
