@@ -7,25 +7,24 @@
       @click-left="onClickLeft"
     />
 
-    <van-tabs v-model="active" title-active-color="#df2d2d" line-width="150">
+    <van-tabs title-active-color="#df2d2d" line-width="150">
     <van-tab title="美团账号登陆">
       <van-cell-group >
-        <van-field v-model="value" placeholder="账户名/手机号/Email" />
+        <van-field placeholder="账户名/手机号/Email" />
       </van-cell-group>
       <van-cell-group>
-        <van-field v-model="value" placeholder="请输入您的密码" />
+        <van-field placeholder="请输入您的密码" />
       </van-cell-group>
     </van-tab>
     <van-tab title="手机验证登陆">
       <van-cell-group>
-        <van-field v-model="phone" placeholder="请输入手机号" class="phone-a">
+        <van-field placeholder="请输入手机号" class="phone-a">
           <van-button slot="button" plain size="small" type="danger" tag="span" class="button-a">获取验证码</van-button>
         </van-field>
       </van-cell-group>
 
        <van-cell-group>
         <van-field
-          v-model="sms"
           center
           clearable
           disabled
@@ -35,7 +34,7 @@
       </van-cell-group>
     </van-tab>
   </van-tabs>
-  <router-link  :to="{ name: 'center' }" class="button" tag="div">登陆</router-link>
+  <router-link :to="{ name: 'center'}" class="button" tag="div">登陆</router-link>
   <router-link to="" tag="span" class="left-a">立即注册</router-link>
   <router-link to="" tag="span" class="right-a">找回密码</router-link>
   </div>
@@ -45,7 +44,7 @@
 export default {
    methods: {
     onClickLeft() {
-      Toast('返回');
+      window.history.back(-1)
     }
   }
 }
