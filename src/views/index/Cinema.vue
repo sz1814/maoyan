@@ -21,7 +21,7 @@
             <div class="quancheng nav-fenlei">
               <div class="qc_Fenlei">
                 <ul>
-                  <li @click="shopOnclick" class="qc_Fenlei_shop" ref="qc_Fenlei_shop">商区</li>
+                  <li @click="shopOnclick" class="qc_Fenlei_shop qc_Fenlei_shop2" ref="qc_Fenlei_shop">商区</li>
                   <li @click="metroOnclick" class="qc_Fenlei_metro" ref= "qc_Fenlei_metro">地铁站</li>
                 </ul>
               </div>
