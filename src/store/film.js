@@ -24,6 +24,7 @@ const mutations = {
 }
 
 const actions = {
+  
   getFilmList({ commit }) {
     Toast.loading({
       loadingType: 'spinner',

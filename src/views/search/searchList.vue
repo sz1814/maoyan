@@ -7,7 +7,7 @@
     <div class="cone">
       <ul>
         <div class="list"
-        v-for="(item,$index) in cinemaList" :key="item.id" >
+        v-for="item in cinemaList" :key="item.id" >
           <div>
             <h3>
               {{ item.nm }}

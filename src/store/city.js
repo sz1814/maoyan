@@ -2,7 +2,8 @@ import axios from 'axios'
 import { Toast } from 'vant'
 
 const state = {
-  cityList: []
+  cityList: [],
+  curCity: '吉安'
 }
 
 const getters = {
@@ -43,6 +44,10 @@ const getters = {
 const mutations = {
   setCityList(state, list) {
     state.cityList = list
+  },
+
+  chgCurCity (state, city) {
+    state.curCity = city
   }
 }
 

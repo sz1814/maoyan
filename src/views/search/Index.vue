@@ -19,7 +19,7 @@
       </form>
 
     </div>
-    <div class="cont">
+    <div class="conte">
       <ul>
         <div class="list"
         v-for="(item,$index) in cinemaList"
@@ -157,7 +157,7 @@ export default {
     }
   }
 
-  .cont {
+  .conte {
     margin-top: 100px;
     ul {
       background:#fff;
@@ -171,6 +171,7 @@ export default {
         div{
           height:24px;
           h3 {
+            height:100%;
             max-width:250px;
             display:inline-block;
             float:left;
@@ -179,6 +180,7 @@ export default {
             white-space: nowrap;
           }
           b {
+            height: 100%;
             font-weight: 900;
             float:left;
             color: red;
@@ -193,12 +195,13 @@ export default {
 
         p {
           height: 19px;
-          margin-top: 6px;
+          margin-top: 16px;
           color: #666;
           font-size: 12px;
           span {
             display:block;
             width: 250px;
+            height: 16px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
