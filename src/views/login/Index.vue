@@ -11,26 +11,21 @@
     <van-tab title="美团账号登陆">
       <van-cell-group >
         <van-field placeholder="账户名/手机号/Email" />
-      </van-cell-group>
-      <van-cell-group>
         <van-field placeholder="请输入您的密码" />
       </van-cell-group>
     </van-tab>
+
     <van-tab title="手机验证登陆">
       <van-cell-group>
         <van-field placeholder="请输入手机号" class="phone-a">
           <van-button slot="button" plain size="small" type="danger" tag="span" class="button-a">获取验证码</van-button>
         </van-field>
-      </van-cell-group>
-
-       <van-cell-group>
         <van-field
           center
           clearable
           disabled
           placeholder="请输入短信验证码"
-        >
-        </van-field>
+        />
       </van-cell-group>
     </van-tab>
   </van-tabs>

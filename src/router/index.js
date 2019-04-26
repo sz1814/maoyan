@@ -9,6 +9,7 @@ import Search from '../views/search/Index.vue'
 import Detail from '../views/detail/Index.vue'
 import SearchList from '../views/search/searchList.vue'
 import Login from '../views/login/Index.vue'
+import Detaillist from '../views/detail/indexlist.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -28,7 +29,8 @@ const router = new VueRouter({
     { path: '/search', name: 'search', component: Search },
     { path: '/searchList', name: 'search', component: SearchList },
     { path: '/detail', name: 'detail', component: Detail },
-    { path: '/login', name: 'login', component: Login }
+    { path: '/login', name: 'login', component: Login },
+    { path: '/detaillist', name: 'detaillist', component: Detaillist }
 
   ]
 })

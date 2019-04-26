@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <router-link tag="li" to="../detail" v-for="films in filmList" :key="films.id">
+      <router-link tag="li" to="../detaillist" v-for="films in filmList" :key="films.id">
         <div class="left">
           <img  :src="films.img"  alt>
         </div>
@@ -34,7 +34,7 @@ export default {
 
   methods: {
     ...mapActions("film", ["getFilmList"]),
-    
+
   },
 
   created() {

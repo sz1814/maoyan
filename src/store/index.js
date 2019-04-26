@@ -5,6 +5,7 @@ import cinema from './cinema'
 import city from './city'
 import search from './search'
 
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({

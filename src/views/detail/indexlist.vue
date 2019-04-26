@@ -1,18 +1,41 @@
 <template>
   <div>
-    <h1 class="header">影院</h1>
+    <div class="detail-top">
+      <van-icon name="arrow-left" size="30px" color="#fff" @click="$router.back()"/>
+      <div class="topName">复仇者联盟4：终局之战</div>
+    </div>
 
-    <form class="search" action="/">
-      <router-link to="../city" class="dizhi">
-        <span>{{ curCity }}</span>
-        <van-icon name="arrow-down"/>
-      </router-link>
-      <router-link to="../search">
-        <van-search class="search-btn" placeholder="搜影院" input-align="center" shape="round"/>
-      </router-link>
-    </form>
-
-    <div class="nav">
+    <div class="detail-move-header">
+      <div class="movie-container">
+        <img
+          src="//p0.meituan.net/moviemachine/f7d2ad70eb79d6d9b8a197713db9b8c41711752.jpg@177w_249h.webp"
+          alt
+        >
+        <div class="content">
+            <span>复仇者联盟4：终局之战</span>
+            <b>Avengers: Endgame</b>
+            <div class="renshu">
+              <em>1825169</em>人想看
+            </div>
+            <p>动作,冒险,奇幻</p>
+            <p>
+              <em>美国</em>
+              <em>181</em>
+              <em>分钟</em>
+            </p>
+            <p>2019-04-24大陆上映</p>
+          </div>
+        </div>
+        <router-link to="../detail" class="linkto">
+          <van-icon name="arrow"  />
+        </router-link>
+    </div>
+    <div class="riqi">
+      <div class="riqi-box">
+        <div class="riqi-juti" ref="riqi" @click="bianhong($index)" v-for="(item,$index) in list">  {{ item }}</div>
+      </div>
+    </div>
+    <div class="detail-nav">
       <van-tabs :line-height="0" title-active-color= "#e54847">
         <van-tab >
             <div slot="title" ref="quancheng" @click="allClick">
@@ -116,7 +139,7 @@
       <div class="blacker" ref="blacker" @click="onClick"></div>
     </div>
 
-    <div class="con">
+    <div class="detail-con">
       <ul>
         <li v-for="yingyuan in yingyuanList" :key="yingyuan.id">
           <div>
@@ -147,8 +170,10 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
+
 <script>
   import { mapActions, mapState } from "vuex"
   let quIndex = 0;
@@ -156,30 +181,22 @@
   export default {
     data() {
       return {
-        now: true
+        seleDate: '',
+        list: [],
+        ide: 0
       }
     },
-
     computed: {
       ...mapState("cinema", ["yingyuanList", "fenleiList"]),
-      ...mapState("city", ["curCity"])
+      ...mapState("city", ["curCity"]),
     },
 
     methods: {
       ...mapActions("cinema", ["getYingyuanList", "getFenleiList"]),
-
       allClick() {
         let fenlei = document.querySelector('.van-tabs__content')
-        if(this.now){
-          this.$refs.blacker.style.display = "block"
-          fenlei.style.display = "block"
-          this.now = false
-        } else {
-          this.$refs.blacker.style.display = "none"
-          fenlei.style.display = "none"
-          this.now = true
-        }
-
+        this.$refs.blacker.style.display = "block"
+        fenlei.style.display = "block"
       },
       onClick() {
         this.$refs.blacker.style.display = "none"
@@ -244,75 +261,143 @@
       },
       yyname($index) {
         this.$refs.pinpai.innerText = this.$refs.yyname[$index].firstChild.innerText
-      }
+      },
+      bianhong($index) {
+        for(let i = 0; i < this.$refs.riqi.length; i++){
+          this.$refs.riqi[i].classList.remove("riqi-juti-red")
+        }
+        this.$refs.riqi[$index].classList.add("riqi-juti-red")
+      },
+
+			getDate(n) {
+				var ss = 24 * 60 * 60 * 1000
+				var timestamp = new Date().getTime()
+				var date1 = new Date(ss * n + timestamp)
+				var newTime = date1.toLocaleString()
+				var arr = newTime.split(" ")
+				var arr2 = arr[0].split('/')
+				return arr2[1] + '月' + arr2[2] + '日'
+			}
     },
 
     created() {
-      this.getYingyuanList();
-      this.getFenleiList();
+      this.getYingyuanList()
+      this.getFenleiList()
+      var dateObj = {};
 
+			for(var i = 1; i <= 10; i++) {
+				dateObj = this.getDate(i); //把返回的日期赋值给对象
+				this.list.push(dateObj); //把对象添加到数组里面，然后渲染到页面
+			}
     },
 
   };
 </script>
 
 <style lang="less">
-  .header {
+  .detail-top {
     width: 100%;
-    font-size: 18px;
-    text-align: center;
-    line-height: 50px;
-    margin: 0 52.5px 0 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    height: 50px;
     background: #e54847;
-    color: #fff;
-    position: fixed;
-    top: 0;
-  }
-  .search {
-    width: 100%;
-    background: #f5f5f5;
-    height: 44px;
-    position: fixed;
-    top: 50px;
-    z-index: 99 !important;
-    .dizhi {
-      padding-left: 15px;
-      color: #666;
-      float: left;
-      line-height: 44px;
-      font-size: 15px;
+    padding: 6px;
+    position:fixed;
+    top:0;
+    .van-icon {
       position: absolute;
+      top: 10px;
     }
-    .van-search__content {
-      background: #fff;
+
+    .topName {
+      -webkit-box-flex: 1;
+      color: #fff;
+      font-size: 18px;
+      text-align: center;
+      line-height: 2;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      left: -1rem;
     }
-    .search-btn {
-      height: 30px;
-      border-radius: 17px;
-      width: 270px;
-      float: right;
-      margin: 9px 18px 5px 15px !important;
-      padding: 0;
-      color: #b2b2b2;
-      border: 0.4px solid #e6e6e6;
-      .van-search__content{
-        height:30px;
-        width:250px;
-        padding: 0 10px;
-        .van-cell{
-          padding: 0;
+  }
+  .detail-move-header {
+    width: 100%;
+    height: 183px;
+    background-color: #666073;
+    padding: 15px;
+    position:fixed;
+    top:50px;
+    .movie-container {
+      width: 345px;
+      height: 153px;
+
+      img {
+        width: 109px;
+        height: 153px;
+        vertical-align: top;
+        float: left;
+        border: 1px solid #fff;
+      }
+
+      .content {
+        width: 220px;
+        height: 153px;
+        float: right;
+        color: #fff;
+
+        b {
+          font-size: 12px;
+          opacity: 0.8;
+        }
+
+        span {
+          font-size: 18px;
+        }
+
+        .renshu {
+          color: #f90;
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+        p {
+          font-size: 12px;
+          opacity: 0.7;
         }
       }
     }
+    .linkto{
+      position:absolute;
+      color:#fff;
+      right: 20px;
+      top: 80px;
+      font-size: 26px;
+    }
   }
-
-  element.style {
-    background: #f5f5f5;
+  .riqi{
+    width:100%;
+    position:fixed;
+    top:233px;
+    height:50px;
+    background:#fff;
+    border-bottom: 1px solid #e0e0e0;
+    overflow: auto;
+    .riqi-box{
+      width: 1150px;
+      height:50px;
+      .riqi-juti{
+        float: left;
+        width: 115px;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        color: #666;
+      }
+      .riqi-juti-red{
+        border-bottom: 2px solid #f03d37;
+        color: #f03d37;
+      }
+    }
   }
-  .nav {
+  .detail-nav {
     .blacker {
       display: none;
       width: 100%;
@@ -325,7 +410,7 @@
     }
     width: 100%;
     position: fixed;
-    top: 94px;
+    top: 283px;
     .van-tabs {
       z-index: 99 !important;
     }
@@ -514,8 +599,8 @@
     }
   }
 
-  .con {
-    margin-top: 140px;
+  .detail-con {
+    margin-top: 325px;
     ul {
       background:#fff;
       li {
@@ -599,4 +684,5 @@
       }
     }
   }
+
 </style>
