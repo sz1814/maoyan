@@ -63,10 +63,8 @@ const actions = {
           "X-Host" : "mall.film-ticket.city.list"
         }
       }).then(res => {
-        console.log(res);
         let result = res.data
         if (result.status === 0) {
-          console.log(result.data.cities)
           commit('setCityList', result.data.cities)
         } else {
           Toast(result.msg)

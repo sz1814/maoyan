@@ -41,12 +41,12 @@
 
       <div class="swiper">
         <div class="showImg">
-          <div v-for="item in 20" :key="item">
+          <div v-for="item in yanyuan" :key="item.name">
             <img
-              src="//p1.meituan.net/moviemachine/b014d18273419de881376d3509ced1a7184848.jpg@130w_180h.webp"
+              :src="item.avatarAddress"
             >
-            <span>小罗伯特·唐尼</span>
-            <em>钢铁侠 Tony Stark / Iron Man</em>
+            <span>{{ item.name }}</span>
+            <em>{{ item.role }}</em>
           </div>
         </div>
       </div>
@@ -61,9 +61,9 @@
 
         <div class="chonggai">
           <div class="imgBox">
-            <div v-for="item in 20" :key="item">
+            <div v-for="item in photoList" :key="item">
               <img
-                src="//p0.meituan.net/movie/710fb2c4d00f7bd3dffbc4475bdc7c7a1128694.jpg@180w_140h_1e_1c.webp"
+                :src="item"
                 alt
               >
             </div>
@@ -259,11 +259,11 @@
         <h2>相关电影</h2>
         <div class="xgShow">
           <div class="bigshow">
-            <div v-for="item in 20" :key="item">
+            <div v-for="item in filmList" :key="item.id">
               <img
-                src="//p0.meituan.net/movie/266d24fe8567632e078b3717a096d104359095.jpg@130w_180h.webp"
+                :src="item.img"
               >
-              <p>复仇者联盟3：无限战争</p>
+              <p>{{ item.nm }}</p>
             </div>
           </div>
         </div>
@@ -284,6 +284,28 @@
   </div>
 </template>
 
+<script>
+import { mapActions, mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState("film", ["filmList"]),
+    ...mapState("detail", ["photoList", "yanyuan"])
+  },
+
+  methods: {
+    ...mapActions("film", ["getFilmList"]),
+    ...mapActions("detail", ["getPhotoList", "getYanyuan"])
+  },
+
+  created() {
+    this.getFilmList();
+    this.getPhotoList();
+    this.getYanyuan()
+  }
+};
+</script>
+
+
 <style lang="less">
 .chonggai {
   width: 100%;
@@ -297,7 +319,7 @@
   img {
     display: block;
     float: left;
-    width: 90px;
+    width: 150px;
     height: 70px;
     margin-right: 10px;
   }
@@ -639,22 +661,22 @@
       // position: absolute;
 
       div {
-        width: 73px;
+        width: 90px;
         height: 136px;
         margin-right: 10px;
         float: left;
         text-align: center;
 
         img {
-          width: 65px;
-          height: 90px;
+          width: 90px;
+          height: 100px;
           margin-left: 4px;
         }
 
         span,
         em {
           display: block;
-          width: 70px;
+          width: 90px;
           height: 18px;
           overflow: hidden;
           white-space: nowrap;

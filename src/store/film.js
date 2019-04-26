@@ -16,7 +16,6 @@ const mutations = {
 
   setBannerList(state, list) {
     state.bannerlist = list
-    console.log(list)
     state.bannerList.forEach(x => {
       x.img = x.img.replace('/w.h','')
      })
