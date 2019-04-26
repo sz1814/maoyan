@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath: '/my/',
+
   devServer: {
     proxy: {
       '/maoyan' : {

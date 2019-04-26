@@ -4,6 +4,7 @@ import film from './film'
 import cinema from './cinema'
 import city from './city'
 import search from './search'
+import detail from './detail'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     film,
     cinema,
     city,
-    search
+    search,
+    detail
   }
 })
